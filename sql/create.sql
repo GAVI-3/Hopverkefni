@@ -77,7 +77,6 @@ CREATE TABLE Results (
     id SERIAL PRIMARY KEY,
     breakOutId VARCHAR(10) REFERENCES BreakOuts(id),
     dataValueType VARCHAR(100) REFERENCES DataValueTypes(type),
-    footnoteId INTEGER REFERENCES Footnotes(id),
     sampleSize INTEGER,
     dataValue DECIMAL(1),
     confidenceLimitLow DECIMAL(1),
