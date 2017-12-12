@@ -77,6 +77,8 @@ CREATE TABLE Results (
     id SERIAL PRIMARY KEY,
     year INTEGER,
     state VARCHAR(2) REFERENCES States(state),
+    questionId VARCHAR(10) REFERENCES Questions(id),
+    responseId VARCHAR(10) REFERENCES Responses(id),
     breakOutId VARCHAR(10) REFERENCES BreakOuts(id),
     dataValueType VARCHAR(100) REFERENCES DataValueTypes(type),
     sampleSize INTEGER,

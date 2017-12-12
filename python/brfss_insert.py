@@ -79,11 +79,12 @@ def data_value_type_insert(row):
 
 def result_insert(row):
     cursor.execute('INSERT INTO Results'
-                   '(year, state, breakOutId, dataValueType, sampleSize, '
-                   'dataValue, confidenceLimitLow, confidenceLimitHigh, '
-                   'footnoteSymbol, footnote) '
-                   "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (
-                       row['Year'], row['Locationabbr'], row['BreakoutID'],
+                   '(year, state, questionId, responseId, breakOutId, '
+                   'dataValueType, sampleSize, dataValue, confidenceLimitLow, '
+                   'confidenceLimitHigh, footnoteSymbol, footnote) '
+                   "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (
+                       row['Year'], row['Locationabbr'], row['QuestionID'],
+                       row['ResponseID'], row['BreakoutID'],
                        row['Data_value_type'], row['Sample_Size'],
                        row['Data_value'], row['Confidence_limit_Low'],
                        row['Confidence_limit_High'],
