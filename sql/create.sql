@@ -81,6 +81,6 @@ CREATE TABLE Results (
     dataValue DECIMAL(1),
     confidenceLimitLow DECIMAL(1),
     confidenceLimitHigh DECIMAL(1),
-    symbol VARCHAR(10),
-    description VARCHAR(400)
+    footnoteSymbol VARCHAR(10),
+    footnote VARCHAR(400)
 );
