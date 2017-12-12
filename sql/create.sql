@@ -75,12 +75,14 @@ CREATE TABLE DataValueTypes (
 
 CREATE TABLE Results (
     id SERIAL PRIMARY KEY,
+    year INTEGER,
+    state VARCHAR(2) REFERENCES States(state),
     breakOutId VARCHAR(10) REFERENCES BreakOuts(id),
     dataValueType VARCHAR(100) REFERENCES DataValueTypes(type),
     sampleSize INTEGER,
-    dataValue DECIMAL(1),
-    confidenceLimitLow DECIMAL(1),
-    confidenceLimitHigh DECIMAL(1),
+    dataValue DECIMAL(5, 2),
+    confidenceLimitLow DECIMAL(5, 2),
+    confidenceLimitHigh DECIMAL(5, 2),
     footnoteSymbol VARCHAR(10),
     footnote VARCHAR(400)
 );
