@@ -1,7 +1,7 @@
 /*
  * Shared tables
  */
-CREATE TABLE State (
+CREATE TABLE States (
     state VARCHAR(2) PRIMARY KEY,
     description VARCHAR(100)
 );
@@ -9,24 +9,24 @@ CREATE TABLE State (
 /*
  * Election Tables
  */
-CREATE TABLE County (
+CREATE TABLE Counties (
     fips INTEGER PRIMARY KEY,
     county VARCHAR(100),
-    state VARCHAR(2) REFERENCES State(state)
+    state VARCHAR(2) REFERENCES States(state)
 );
 
-CREATE TABLE Party (
+CREATE TABLE Parties (
     name VARCHAR(100) PRIMARY KEY
 );
 
-CREATE TABLE Candidate (
+CREATE TABLE Candidates (
     name VARCHAR(100) PRIMARY KEY,
-    party VARCHAR(100) REFERENCES Party(name)
+    party VARCHAR(100) REFERENCES Parties(name)
 );
 
 CREATE TABLE Votes (
-    candidate VARCHAR(100) REFERENCES Candidate(name),
-    county INTEGER REFERENCES County(fips),
+    candidate VARCHAR(100) REFERENCES Candidates(name),
+    county INTEGER REFERENCES Counties(fips),
     votes INTEGER,
     PRIMARY KEY(candidate, county)
 );
@@ -35,55 +35,55 @@ CREATE TABLE Votes (
 /*
  * BRFSS Tables
  */
-CREATE TABLE Class (
+CREATE TABLE Classes (
     id VARCHAR(10) PRIMARY KEY,
     description VARCHAR(400)
 );
 
-CREATE TABLE Topic (
+CREATE TABLE Topics (
     id VARCHAR(10) PRIMARY KEY,
     description VARCHAR(400),
-    classId VARCHAR(10) REFERENCES Class(id)
+    classId VARCHAR(10) REFERENCES Classes(id)
 );
 
-CREATE TABLE BreakOutCategory (
+CREATE TABLE BreakOutCategories (
     id VARCHAR(10) PRIMARY KEY,
     description VARCHAR(400)
 );
 
-CREATE TABLE BreakOut (
+CREATE TABLE BreakOuts (
     id VARCHAR(10) PRIMARY KEY,
     description VARCHAR(400),
-    breakOutCategoryId VARCHAR(10) REFERENCES BreakOutCategory(id)
+    breakOutCategoryId VARCHAR(10) REFERENCES BreakOutCategories(id)
 );
 
-CREATE TABLE Response (
+CREATE TABLE Responses (
     id VARCHAR(10) PRIMARY KEY,
     description VARCHAR(400)
 );
 
-CREATE TABLE Question (
+CREATE TABLE Questions (
     id VARCHAR(10) PRIMARY KEY,
     description VARCHAR(400),
-    topicId VARCHAR(10) REFERENCES Topic(id)
+    topicId VARCHAR(10) REFERENCES Topics(id)
 );
 
-CREATE TABLE DataValueType (
+CREATE TABLE DataValueTypes (
     type VARCHAR(100) PRIMARY KEY,
     unit VARCHAR(10)
 );
 
-CREATE TABLE Footnote (
+CREATE TABLE Footnotes (
     id SERIAL PRIMARY KEY,
     symbol VARCHAR(10),
     description VARCHAR(400)
 );
 
-CREATE TABLE Result (
+CREATE TABLE Results (
     id SERIAL PRIMARY KEY,
-    breakOutId VARCHAR(10) REFERENCES BreakOut(id),
-    dataValueType VARCHAR(100) REFERENCES DataValueType(type),
-    footnoteId INTEGER REFERENCES Footnote(id),
+    breakOutId VARCHAR(10) REFERENCES BreakOuts(id),
+    dataValueType VARCHAR(100) REFERENCES DataValueTypes(type),
+    footnoteId INTEGER REFERENCES Footnotes(id),
     sampleSize INTEGER,
     dataValue DECIMAL(1),
     confidenceLimitLow DECIMAL(1),

@@ -1,19 +1,19 @@
 /* Election */
 DROP TABLE Votes;
-DROP TABLE Candidate;
-DROP TABLE Party;
-DROP TABLE County;
+DROP TABLE Candidates;
+DROP TABLE Parties;
+DROP TABLE Counties;
 
 /* BRFSS */
-DROP TABLE Result;
-DROP TABLE Footnote;
-DROP TABLE DataValueType;
-DROP TABLE Question;
-DROP TABLE Response;
-DROP TABLE BreakOut;
-DROP TABLE BreakOutCategory;
-DROP TABLE Topic;
-DROP TABLE Class;
+DROP TABLE Results;
+DROP TABLE Footnotes;
+DROP TABLE DataValueTypes;
+DROP TABLE Questions;
+DROP TABLE Responses;
+DROP TABLE BreakOuts;
+DROP TABLE BreakOutCategories;
+DROP TABLE Topics;
+DROP TABLE Classes;
 
 /* Shared */
-DROP TABLE State;
+DROP TABLE States;
