@@ -6,7 +6,6 @@ DROP TABLE Counties;
 
 /* BRFSS */
 DROP TABLE Results;
-DROP TABLE Footnotes;
 DROP TABLE DataValueTypes;
 DROP TABLE Questions;
 DROP TABLE Responses;

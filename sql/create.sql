@@ -73,12 +73,6 @@ CREATE TABLE DataValueTypes (
     unit VARCHAR(10)
 );
 
-CREATE TABLE Footnotes (
-    id SERIAL PRIMARY KEY,
-    symbol VARCHAR(10),
-    description VARCHAR(400)
-);
-
 CREATE TABLE Results (
     id SERIAL PRIMARY KEY,
     breakOutId VARCHAR(10) REFERENCES BreakOuts(id),
@@ -87,5 +81,7 @@ CREATE TABLE Results (
     sampleSize INTEGER,
     dataValue DECIMAL(1),
     confidenceLimitLow DECIMAL(1),
-    confidenceLimitHigh DECIMAL(1)
+    confidenceLimitHigh DECIMAL(1),
+    symbol VARCHAR(10),
+    description VARCHAR(400)
 );
