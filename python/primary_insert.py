@@ -44,13 +44,38 @@ def county_insert(row):
 				   "ON CONFLICT DO NOTHING;\n", (fips, row['county'],
 				   							   row['state_abbreviation']))
 
+def parties_insert(row):
+    cursor.execute("INSERT INTO Parties "
+                   "VALUES ('{}')"
+                   "ON CONFLICT DO NOTHING;\n".format((row['party'])))
+
+
+def condidates_insert(row):
+    cursor.execute("INSERT INTO Candidates "
+                   "VALUES (%s, %s)"
+                   "ON CONFLICT DO NOTHING;\n", (row['candidate'], row['party']))
+
+
+def votes_insert(row):
+    fips = fix_fips(row)
+    cursor.execute("INSERT INTO Votes "
+                   "VALUES (%s, %s, %s)"
+                   "ON CONFLICT DO NOTHING;\n", (row['candidate'],
+                                                 fips, 
+                                                 row['votes']))
+
 
 with open(filename) as csvfile:
 	reader = csv.DictReader(csvfile)
 
 	inserts = []
 	for idx, row in enumerate(reader):
+		
+		state_insert(row)
 		county_insert(row)
+		parties_insert(row)
+		condidates_insert(row)
+		votes_insert(row)
 
 		if idx % 5000 == 0:
 			conn.commit()
