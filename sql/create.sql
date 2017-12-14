@@ -31,6 +31,19 @@ CREATE TABLE Votes (
     PRIMARY KEY(candidate, county)
 );
 
+CREATE TABLE GeneralVotes (
+    id SERIAL PRIMARY KEY,
+    votes_dem INTEGER,
+    votes_gop INTEGER,
+    total_votes INTEGER,
+    per_dem DECIMAL(13, 12),
+    per_gop DECIMAL(13, 12),
+    diff INTEGER,
+    per_point_diff DECIMAL(4, 2),
+    state VARCHAR(2) REFERENCES States(state),
+    county INTEGER REFERENCES Counties(fips)
+);
+
 
 /*
  * BRFSS Tables
