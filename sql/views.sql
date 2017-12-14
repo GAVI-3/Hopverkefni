@@ -60,3 +60,41 @@ FROM
 GROUP BY
     s.state,
     s.description;
+
+
+CREATE OR REPLACE VIEW brfss_combined
+AS
+SELECT
+    r.year,
+    s.state,
+    s.description as state_name,
+    c.description as class,
+    t.description as topic,
+    q.description as question,
+    re.description as response,
+    b.description as break_out,
+    bc.description as break_out_category,
+    r.sampleSize,
+    r.dataValue,
+    r.confidenceLimitLow,
+    r.confidenceLimitHigh,
+    d.unit,
+    d.type,
+    r.footnoteSymbol,
+    r.footnote,
+    c.id as classId,
+    t.id as topicId,
+    b.id as breakOutId,
+    bc.id as breakOutCategoryId,
+    q.id as questionId,
+    re.id as responseId
+FROM
+    Results r
+    JOIN States s ON s.state = r.state
+    JOIN Questions q ON q.id = r.questionId
+    JOIN Topics t ON t.id = q.topicId
+    JOIN Classes c ON c.id = t.classId
+    JOIN Responses re ON re.id = r.responseId
+    JOIN BreakOuts b ON b.id = r.breakOutId
+    JOIN BreakOutCategories bc ON bc.id = b.breakOutCategoryId
+    JOIN DataValueTypes d ON d.type = r.dataValueType;
