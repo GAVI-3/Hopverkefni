@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW votes_by_state
+CREATE OR REPLACE VIEW primary_votes_by_state
 AS
 SELECT
     s.description,
@@ -15,7 +15,7 @@ GROUP BY
     v.candidate,
     ca.party;
 
-CREATE OR REPLACE VIEW total_votes
+CREATE OR REPLACE VIEW total_primary_votes
 AS
 SELECT
     c.name,
@@ -42,3 +42,21 @@ FROM
               JOIN Candidates c ON c.name = v.candidate
           GROUP BY
               c.party) t2 ON t2.party = c.party;
+
+
+CREATE OR REPLACE VIEW general_votes_by_state
+AS
+SELECT
+    s.state,
+    s.description,
+    SUM(gv.votes_dem) as total_votes_dem,
+    SUM(gv.votes_gop) as total_votes_gop,
+    SUM(gv.total_votes) as total_votes,
+    round((SUM(gv.votes_dem)::decimal / SUM(gv.total_votes) * 100), 2) as percentage_dem,
+    round((SUM(gv.votes_gop)::decimal / SUM(gv.total_votes) * 100), 2) as percentage_gop
+FROM
+    GeneralVotes gv
+    JOIN States s ON s.state = gv.state
+GROUP BY
+    s.state,
+    s.description;
